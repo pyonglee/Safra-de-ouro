@@ -39,14 +39,14 @@ export default function ProfileScreen() {
           <View style={styles.avatar}>
             <MaterialCommunityIcons name="account" size={48} color={colors.primary} />
           </View>
-          <Text style={styles.userName}>{user?.name ?? 'Usu\u00e1rio'}</Text>
+          <Text style={styles.userName}>{user?.name ?? 'Usuário'}</Text>
           <Text style={styles.userEmail}>{user?.email ?? ''}</Text>
         </View>
 
         {/* Menu items */}
         <Pressable style={[styles.menuItem, shadows.card]} onPress={() => router.push('/config-preco')}>
           <MaterialCommunityIcons name="currency-brl" size={24} color={colors.accent} />
-          <Text style={styles.menuLabel}>Pre\u00e7o por Balaio</Text>
+          <Text style={styles.menuLabel}>Preço por Balaio</Text>
           <MaterialCommunityIcons name="chevron-right" size={24} color={colors.border} />
         </Pressable>
 

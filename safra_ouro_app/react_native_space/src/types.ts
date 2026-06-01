@@ -43,6 +43,9 @@ export interface Harvest {
   endDate?: string | null;
   totalSacks?: number;
   totalRevenue?: number;
+  totalExpenses?: number;
+  totalWorkerPayments?: number;
+  grandTotalCosts?: number;
   netProfit?: number;
   profitMargin?: number;
   createdAt: string;

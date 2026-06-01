@@ -86,9 +86,9 @@ export default function ExpenseDetailScreen() {
             <DetailRow label="Quantidade" value={`${expense.quantity} ${expense?.unit ?? ''}`} />
           )}
           {expense?.appliedArea != null && (
-            <DetailRow label="\u00c1rea aplicada" value={`${expense.appliedArea} ha`} />
+            <DetailRow label="Área aplicada" value={`${expense.appliedArea} ha`} />
           )}
-          {expense?.notes ? <DetailRow label="Observa\u00e7\u00f5es" value={expense.notes} /> : null}
+          {expense?.notes ? <DetailRow label="Observações" value={expense.notes} /> : null}
         </View>
 
         <Pressable style={styles.deleteBtn} onPress={handleDelete}>

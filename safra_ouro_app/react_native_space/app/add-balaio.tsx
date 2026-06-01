@@ -143,7 +143,7 @@ export default function AddBalaioScreen() {
 
           {/* Price & Total */}
           <View style={styles.priceRow}>
-            <Text style={styles.priceLabel}>Pre\u00e7o: {formatCurrency(pricePerBalaio)}/balaio</Text>
+            <Text style={styles.priceLabel}>Preço: {formatCurrency(pricePerBalaio)}/balaio</Text>
             <Text style={styles.totalLabel}>Total: <Text style={styles.totalValue}>{formatCurrency(total)}</Text></Text>
           </View>
 

@@ -15,11 +15,11 @@ type ReportType = 'expenses' | 'workers' | 'production' | 'profit';
 const REPORT_CONFIG = [
   { key: 'expenses' as ReportType, label: 'Despesas por Produto', icon: 'cash-minus' as const },
   { key: 'workers' as ReportType, label: 'Pagamentos de Trabalhadores', icon: 'account-group' as const },
-  { key: 'production' as ReportType, label: 'Produ\u00e7\u00e3o por Safra', icon: 'package-variant' as const },
+  { key: 'production' as ReportType, label: 'Produção por Safra', icon: 'package-variant' as const },
   { key: 'profit' as ReportType, label: 'Lucro Detalhado', icon: 'chart-bar' as const },
 ];
 
-const CATEGORY_LABELS: Record<string, string> = { FERTILIZER: 'Adubo', SPRAYING: 'Pulveriza\u00e7\u00e3o', OTHER: 'Outros' };
+const CATEGORY_LABELS: Record<string, string> = { FERTILIZER: 'Adubo', SPRAYING: 'Pulverização', OTHER: 'Outros' };
 
 export default function ReportsScreen() {
   const router = useRouter();
@@ -66,7 +66,7 @@ export default function ReportsScreen() {
     try {
       const data = reportData?.[type];
       if (!data) return;
-      let text = `Relat\u00f3rio - ${REPORT_CONFIG.find((r) => r.key === type)?.label ?? type}\n\n`;
+      let text = `Relatório - ${REPORT_CONFIG.find((r) => r.key === type)?.label ?? type}\n\n`;
       if (type === 'profit') {
         const p = data as ProfitReport;
         text += `Receita: ${formatCurrency(p?.totalRevenue)}\nDespesas: ${formatCurrency(p?.totalExpenses)}\nPagamentos: ${formatCurrency(p?.totalWorkerPayments)}\nLucro: ${formatCurrency(p?.netProfit)}\nMargem: ${(p?.profitMargin ?? 0)?.toFixed?.(1) ?? '0'}%`;
@@ -166,7 +166,7 @@ export default function ReportsScreen() {
           <Text style={[styles.reportRowValue, { color: colors.error }]}>- {formatCurrency(data?.totalWorkerPayments)}</Text>
         </View>
         <View style={styles.grandTotal}>
-          <Text style={styles.grandTotalLabel}>Lucro L\u00edquido</Text>
+          <Text style={styles.grandTotalLabel}>Lucro Líquido</Text>
           <Text style={[styles.grandTotalValue, { color: (data?.netProfit ?? 0) >= 0 ? colors.success : colors.error }]}>
             {formatCurrency(data?.netProfit)} ({(data?.profitMargin ?? 0)?.toFixed?.(1) ?? '0'}%)
           </Text>
@@ -192,7 +192,7 @@ export default function ReportsScreen() {
         <Pressable onPress={() => router.back()} style={styles.backBtn}>
           <MaterialCommunityIcons name="arrow-left" size={24} color={colors.textPrimary} />
         </Pressable>
-        <Text style={styles.headerTitle}>Relat\u00f3rios</Text>
+        <Text style={styles.headerTitle}>Relatórios</Text>
         <View style={{ width: 48 }} />
       </View>
 

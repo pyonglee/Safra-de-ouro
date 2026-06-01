@@ -33,7 +33,7 @@ export default function AddProductionScreen() {
   const handleSave = async () => {
     if (!selectedHarvestId) { setError('Selecione uma safra'); return; }
     const sacksNum = parseInt(sacks, 10);
-    if (!sacksNum || sacksNum <= 0) { setError('Informe o n\u00famero de sacas'); return; }
+    if (!sacksNum || sacksNum <= 0) { setError('Informe o número de sacas'); return; }
     setError('');
     setLoading(true);
     try {
@@ -56,7 +56,7 @@ export default function AddProductionScreen() {
     <SafeAreaView style={styles.safe}>
       <View style={styles.header}>
         <IconButton icon="arrow-left" onPress={() => router.back()} iconColor={colors.textPrimary} />
-        <Text style={styles.headerTitle}>Registrar Produ\u00e7\u00e3o</Text>
+        <Text style={styles.headerTitle}>Registrar Produção</Text>
         <View style={{ width: 48 }} />
       </View>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.flex}>
@@ -76,12 +76,12 @@ export default function AddProductionScreen() {
             ))}
           </ScrollView>
 
-          <TextInput label="N\u00famero de Sacas" value={sacks} onChangeText={setSacks}
+          <TextInput label="Número de Sacas" value={sacks} onChangeText={setSacks}
             keyboardType="numeric" mode="outlined" outlineColor={colors.border}
             activeOutlineColor={colors.accent} style={styles.input}
             left={<TextInput.Icon icon="package-variant" />} />
 
-          <TextInput label="Observa\u00e7\u00f5es" value={notes} onChangeText={setNotes}
+          <TextInput label="Observações" value={notes} onChangeText={setNotes}
             mode="outlined" outlineColor={colors.border} activeOutlineColor={colors.accent}
             style={styles.input} multiline numberOfLines={3} />
 

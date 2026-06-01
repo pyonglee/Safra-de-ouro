@@ -48,7 +48,7 @@ export class DashboardService {
 
     // Get harvest with price
     const harvest = await this.prisma.harvest.findUnique({ where: { id: hId } });
-    const salePricePerSack = harvest ? Number(harvest.salePricePerSack) : 0;
+    const salePricePerSack = harvest ? (parseFloat(String(harvest.salePricePerSack ?? 0)) || 0) : 0;
 
     // Aggregations
     const prodAgg = await this.prisma.production_record.aggregate({
@@ -62,13 +62,13 @@ export class DashboardService {
       where: { userId, harvestId: hId },
       _sum: { cost: true },
     });
-    const totalExpenses = Number(expenseAgg._sum.cost || 0);
+    const totalExpenses = parseFloat(String(expenseAgg._sum.cost ?? 0)) || 0;
 
     const balaioAgg = await this.prisma.balaio_record.aggregate({
       where: { userId, harvestId: hId },
       _sum: { totalValue: true },
     });
-    const totalWorkerPayments = Number(balaioAgg._sum.totalValue || 0);
+    const totalWorkerPayments = parseFloat(String(balaioAgg._sum.totalValue ?? 0)) || 0;
 
     const grandTotalCosts = totalExpenses + totalWorkerPayments;
     const netProfit = totalRevenue - grandTotalCosts;
@@ -99,13 +99,13 @@ export class DashboardService {
         type: 'balaio',
         description: `${b.worker.name}: ${b.quantity} balaios`,
         date: b.createdAt.toISOString(),
-        value: Number(b.totalValue),
+        value: parseFloat(String(b.totalValue ?? 0)) || 0,
       })),
       ...recentExpenses.map((e) => ({
         type: 'expense',
         description: `${e.productName} (${e.category})`,
         date: e.createdAt.toISOString(),
-        value: Number(e.cost),
+        value: parseFloat(String(e.cost ?? 0)) || 0,
       })),
       ...recentProduction.map((p) => ({
         type: 'production',

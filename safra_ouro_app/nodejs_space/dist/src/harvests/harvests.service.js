@@ -30,19 +30,23 @@ let HarvestsService = HarvestsService_1 = class HarvestsService {
             },
         });
         const items = harvests.map((h) => {
-            const totalSacks = h.productionRecords.reduce((sum, p) => sum + p.sacks, 0);
-            const totalRevenue = totalSacks * Number(h.salePricePerSack);
-            const totalExpenses = h.expenses.reduce((sum, e) => sum + Number(e.cost), 0);
-            const totalWorkerPayments = h.balaioRecords.reduce((sum, b) => sum + Number(b.totalValue), 0);
+            const totalSacks = (h.productionRecords ?? []).reduce((sum, p) => sum + (p.sacks ?? 0), 0);
+            const salePricePerSack = parseFloat(String(h.salePricePerSack ?? 0)) || 0;
+            const totalRevenue = totalSacks * salePricePerSack;
+            const totalExpenses = (h.expenses ?? []).reduce((sum, e) => sum + (parseFloat(String(e.cost ?? 0)) || 0), 0);
+            const totalWorkerPayments = (h.balaioRecords ?? []).reduce((sum, b) => sum + (parseFloat(String(b.totalValue ?? 0)) || 0), 0);
             const grandTotalCosts = totalExpenses + totalWorkerPayments;
             const netProfit = totalRevenue - grandTotalCosts;
             const profitMargin = totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0;
             return {
                 id: h.id,
                 name: h.name,
-                salePricePerSack: Number(h.salePricePerSack),
+                salePricePerSack,
                 totalSacks,
                 totalRevenue,
+                totalExpenses,
+                totalWorkerPayments,
+                grandTotalCosts,
                 netProfit,
                 profitMargin: Math.round(profitMargin * 100) / 100,
                 createdAt: h.createdAt.toISOString(),
@@ -61,20 +65,21 @@ let HarvestsService = HarvestsService_1 = class HarvestsService {
         });
         if (!h)
             throw new common_1.NotFoundException('Harvest not found');
-        const totalSacks = h.productionRecords.reduce((sum, p) => sum + p.sacks, 0);
-        const totalRevenue = totalSacks * Number(h.salePricePerSack);
-        const totalExpenses = h.expenses.reduce((sum, e) => sum + Number(e.cost), 0);
-        const totalWorkerPayments = h.balaioRecords.reduce((sum, b) => sum + Number(b.totalValue), 0);
+        const totalSacks = (h.productionRecords ?? []).reduce((sum, p) => sum + (p.sacks ?? 0), 0);
+        const salePricePerSack = parseFloat(String(h.salePricePerSack ?? 0)) || 0;
+        const totalRevenue = totalSacks * salePricePerSack;
+        const totalExpenses = (h.expenses ?? []).reduce((sum, e) => sum + (parseFloat(String(e.cost ?? 0)) || 0), 0);
+        const totalWorkerPayments = (h.balaioRecords ?? []).reduce((sum, b) => sum + (parseFloat(String(b.totalValue ?? 0)) || 0), 0);
         const grandTotalCosts = totalExpenses + totalWorkerPayments;
         const netProfit = totalRevenue - grandTotalCosts;
         const profitMargin = totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0;
-        const fertilizerCost = h.expenses.filter(e => e.category === 'FERTILIZER').reduce((s, e) => s + Number(e.cost), 0);
-        const sprayingCost = h.expenses.filter(e => e.category === 'SPRAYING').reduce((s, e) => s + Number(e.cost), 0);
-        const otherCost = h.expenses.filter(e => e.category === 'OTHER').reduce((s, e) => s + Number(e.cost), 0);
+        const fertilizerCost = (h.expenses ?? []).filter(e => e.category === 'FERTILIZER').reduce((s, e) => s + (parseFloat(String(e.cost ?? 0)) || 0), 0);
+        const sprayingCost = (h.expenses ?? []).filter(e => e.category === 'SPRAYING').reduce((s, e) => s + (parseFloat(String(e.cost ?? 0)) || 0), 0);
+        const otherCost = (h.expenses ?? []).filter(e => e.category === 'OTHER').reduce((s, e) => s + (parseFloat(String(e.cost ?? 0)) || 0), 0);
         return {
             id: h.id,
             name: h.name,
-            salePricePerSack: Number(h.salePricePerSack),
+            salePricePerSack,
             startDate: h.startDate ? h.startDate.toISOString() : null,
             endDate: h.endDate ? h.endDate.toISOString() : null,
             totalSacks,

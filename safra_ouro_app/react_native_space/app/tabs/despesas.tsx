@@ -15,7 +15,7 @@ import type { Expense, Harvest } from '../../src/types';
 const CATEGORIES = [
   { key: 'ALL', label: 'Todos' },
   { key: 'FERTILIZER', label: 'Adubo' },
-  { key: 'SPRAYING', label: 'Pulveriza\u00e7\u00e3o' },
+  { key: 'SPRAYING', label: 'Pulverização' },
   { key: 'OTHER', label: 'Outros' },
 ];
 

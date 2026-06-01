@@ -62,7 +62,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="producao"
         options={{
-          title: 'Produ\u00e7\u00e3o',
+          title: 'Produção',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="sprout" size={size} color={color} />
           ),

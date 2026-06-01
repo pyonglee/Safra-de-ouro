@@ -10,6 +10,9 @@ export declare class HarvestsController {
             salePricePerSack: number;
             totalSacks: number;
             totalRevenue: number;
+            totalExpenses: number;
+            totalWorkerPayments: number;
+            grandTotalCosts: number;
             netProfit: number;
             profitMargin: number;
             createdAt: string;

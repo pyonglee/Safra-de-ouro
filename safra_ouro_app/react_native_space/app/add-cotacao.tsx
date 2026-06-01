@@ -9,7 +9,7 @@ import { colors, spacing, borderRadius } from '../src/theme';
 
 const COFFEE_TYPES = ['ARABICA', 'ROBUSTA', 'CONILON', 'BLEND'];
 const COFFEE_LABELS: Record<string, string> = {
-  ARABICA: 'Ar\u00e1bica',
+  ARABICA: 'Arábica',
   ROBUSTA: 'Robusta',
   CONILON: 'Conilon',
   BLEND: 'Blend',
@@ -25,7 +25,7 @@ export default function AddQuotationScreen() {
 
   const handleSave = async () => {
     const price = parseFloat(pricePerSack?.replace(',', '.') ?? '0');
-    if (!price || price <= 0) { setError('Informe o pre\u00e7o por saca'); return; }
+    if (!price || price <= 0) { setError('Informe o preço por saca'); return; }
     setError('');
     setLoading(true);
     try {
@@ -48,12 +48,12 @@ export default function AddQuotationScreen() {
     <SafeAreaView style={styles.safe}>
       <View style={styles.header}>
         <IconButton icon="arrow-left" onPress={() => router.back()} iconColor={colors.textPrimary} />
-        <Text style={styles.headerTitle}>Nova Cota\u00e7\u00e3o</Text>
+        <Text style={styles.headerTitle}>Nova Cotação</Text>
         <View style={{ width: 48 }} />
       </View>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.flex}>
         <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
-          <Text style={styles.label}>Tipo de Caf\u00e9</Text>
+          <Text style={styles.label}>Tipo de Café</Text>
           <View style={styles.typeRow}>
             {COFFEE_TYPES.map((t) => (
               <Pressable
@@ -68,7 +68,7 @@ export default function AddQuotationScreen() {
             ))}
           </View>
 
-          <TextInput label="Pre\u00e7o por Saca (R$)" value={pricePerSack}
+          <TextInput label="Preço por Saca (R$)" value={pricePerSack}
             onChangeText={setPricePerSack} keyboardType="decimal-pad" mode="outlined"
             outlineColor={colors.border} activeOutlineColor={colors.accent} style={styles.input}
             left={<TextInput.Icon icon="currency-brl" />} />

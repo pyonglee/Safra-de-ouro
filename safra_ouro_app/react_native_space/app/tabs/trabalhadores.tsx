@@ -78,7 +78,7 @@ export default function WorkersScreen() {
           style={styles.priceChip}
           onPress={() => router.push('/config-preco')}
         >
-          <MaterialCommunityIcons name="currency-brl" size={16} color={colors.accent} />
+          <MaterialCommunityIcons name="cash" size={16} color={colors.accent} />
           <Text style={styles.priceChipText}>
             {formatCurrency(settings?.pricePerBalaio)}/balaio
           </Text>

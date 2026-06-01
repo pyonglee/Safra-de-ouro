@@ -49,7 +49,7 @@ export default function DashboardScreen() {
   };
 
   const summaryCards = [
-    { label: 'Produ\u00e7\u00e3o', value: `${data?.totalSacks ?? 0} sacas`, icon: 'package-variant' as const, color: colors.success },
+    { label: 'Produção', value: `${data?.totalSacks ?? 0} sacas`, icon: 'package-variant' as const, color: colors.success },
     { label: 'Receita', value: formatCurrency(data?.totalRevenue), icon: 'cash' as const, color: colors.accent },
     { label: 'Despesas', value: formatCurrency(data?.grandTotalCosts), icon: 'cash-minus' as const, color: colors.primary },
     { label: 'Lucro', value: formatCurrency(data?.netProfit), icon: 'chart-line' as const, color: (data?.netProfit ?? 0) >= 0 ? colors.success : colors.error },
@@ -57,16 +57,16 @@ export default function DashboardScreen() {
 
   const quickActions = [
     { label: 'Balaios', icon: 'basket' as const, route: '/add-balaio' as const },
-    { label: 'Despesa', icon: 'cash-minus' as const, route: '/add-expense' as const },
-    { label: 'Produ\u00e7\u00e3o', icon: 'package-variant' as const, route: '/add-production' as const },
-    { label: 'Cota\u00e7\u00f5es', icon: 'chart-line' as const, route: '/cotacoes' as const },
+    { label: 'Despesas', icon: 'cash-minus' as const, route: '/add-expense' as const },
+    { label: 'Produção', icon: 'package-variant' as const, route: '/add-production' as const },
+    { label: 'Cotações', icon: 'chart-line' as const, route: '/cotacoes' as const },
   ];
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.greeting}>Ol\u00e1, {user?.name?.split(' ')?.[0] ?? 'Produtor'} \u2615</Text>
+          <Text style={styles.greeting}>Olá, {user?.name?.split(' ')?.[0] ?? 'Produtor'} ☕</Text>
           <Text style={styles.headerTitle}>Safra de Ouro</Text>
         </View>
         <Pressable
@@ -131,7 +131,7 @@ export default function DashboardScreen() {
         )}
 
         {/* Quick Actions */}
-        <Text style={styles.sectionTitle}>A\u00e7\u00f5es R\u00e1pidas</Text>
+        <Text style={styles.sectionTitle}>Ações Rápidas</Text>
         <View style={styles.quickActionsRow}>
           {quickActions.map((action, i) => (
             <Pressable
@@ -142,7 +142,7 @@ export default function DashboardScreen() {
               <View style={styles.quickActionIcon}>
                 <MaterialCommunityIcons name={action.icon} size={24} color={colors.primary} />
               </View>
-              <Text style={styles.quickActionLabel}>{action.label}</Text>
+              <Text style={styles.quickActionLabel} numberOfLines={2} adjustsFontSizeToFit>{action.label}</Text>
             </Pressable>
           ))}
         </View>
@@ -257,19 +257,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.surface,
     borderRadius: borderRadius.lg,
-    padding: spacing.md,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.xs,
     alignItems: 'center',
+    minWidth: 72,
   },
   quickActionIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     backgroundColor: colors.surfaceSecondary,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: spacing.xs,
   },
-  quickActionLabel: { fontSize: 12, fontWeight: '600', color: colors.textPrimary, textAlign: 'center' },
+  quickActionLabel: { fontSize: 11, fontWeight: '600', color: colors.textPrimary, textAlign: 'center' },
   activityItem: {
     flexDirection: 'row',
     alignItems: 'center',

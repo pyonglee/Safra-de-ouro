@@ -13,7 +13,7 @@ import { EmptyState } from '../src/components/EmptyState';
 import type { Quotation, QuotationLatest } from '../src/types';
 
 const COFFEE_LABELS: Record<string, string> = {
-  ARABICA: 'Ar\u00e1bica',
+  ARABICA: 'Arábica',
   ROBUSTA: 'Robusta',
   CONILON: 'Conilon',
   BLEND: 'Blend',
@@ -49,7 +49,7 @@ export default function QuotationsScreen() {
         <Pressable onPress={() => router.back()} style={styles.backBtn}>
           <MaterialCommunityIcons name="arrow-left" size={24} color={colors.textPrimary} />
         </Pressable>
-        <Text style={styles.headerTitle}>Cota\u00e7\u00f5es de Caf\u00e9</Text>
+        <Text style={styles.headerTitle}>Cotações de Café</Text>
         <View style={{ width: 48 }} />
       </View>
 
@@ -63,7 +63,7 @@ export default function QuotationsScreen() {
         ListHeaderComponent={
           latestEntries?.length > 0 ? (
             <View style={styles.latestSection}>
-              <Text style={styles.sectionTitle}>Pre\u00e7os Atuais</Text>
+              <Text style={styles.sectionTitle}>Preços Atuais</Text>
               <View style={styles.latestCards}>
                 {latestEntries.map(([type, data]) => (
                   <View key={type} style={[styles.latestCard, shadows.card]}>
@@ -80,7 +80,7 @@ export default function QuotationsScreen() {
                   </View>
                 ))}
               </View>
-              <Text style={[styles.sectionTitle, { marginTop: spacing.md }]}>Hist\u00f3rico</Text>
+              <Text style={[styles.sectionTitle, { marginTop: spacing.md }]}>Histórico</Text>
             </View>
           ) : null
         }
@@ -95,7 +95,7 @@ export default function QuotationsScreen() {
         )}
         ListEmptyComponent={
           !loading ? (
-            <EmptyState icon="chart-line" title="Nenhuma cota\u00e7\u00e3o registrada" subtitle="Toque no + para adicionar" />
+            <EmptyState icon="chart-line" title="Nenhuma cotação registrada" subtitle="Toque no + para adicionar" />
           ) : null
         }
       />
@@ -105,7 +105,7 @@ export default function QuotationsScreen() {
         style={styles.fab}
         color={colors.white}
         onPress={() => router.push('/add-cotacao')}
-        accessibilityLabel="Adicionar cota\u00e7\u00e3o"
+        accessibilityLabel="Adicionar cotação"
       />
     </SafeAreaView>
   );

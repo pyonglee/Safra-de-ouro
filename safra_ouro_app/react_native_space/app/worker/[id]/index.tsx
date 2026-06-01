@@ -24,7 +24,7 @@ export default function WorkerDetailScreen() {
   if (!id) {
     return (
       <SafeAreaView style={styles.safe}>
-        <EmptyState icon="account" title="Trabalhador n\u00e3o encontrado" />
+        <EmptyState icon="account" title="Trabalhador não encontrado" />
       </SafeAreaView>
     );
   }
@@ -96,7 +96,7 @@ export default function WorkerDetailScreen() {
         </View>
         <View style={styles.statItem}>
           <Text style={styles.statValue}>{(worker?.avgBalaiosPerDay ?? 0)?.toFixed?.(1) ?? '0'}</Text>
-          <Text style={styles.statLabel}>M\u00e9dia/Dia</Text>
+          <Text style={styles.statLabel}>Média/Dia</Text>
         </View>
       </View>
 

@@ -81,7 +81,7 @@ export default function HarvestDetailScreen() {
       >
         {/* Profit Card */}
         <View style={[styles.profitCard, shadows.cardElevated, { borderLeftColor: isPositive ? colors.success : colors.error }]}>
-          <Text style={styles.profitLabel}>Lucro L\u00edquido</Text>
+          <Text style={styles.profitLabel}>Lucro Líquido</Text>
           <Text style={[styles.profitValue, { color: isPositive ? colors.success : colors.error }]}>
             {formatCurrency(profit)}
           </Text>
@@ -107,7 +107,7 @@ export default function HarvestDetailScreen() {
             <Text style={styles.cardRowValue}>{formatCurrency(harvest?.expenseBreakdown?.fertilizer)}</Text>
           </View>
           <View style={styles.cardRow}>
-            <Text style={styles.cardRowLabel}>Pulveriza\u00e7\u00e3o</Text>
+            <Text style={styles.cardRowLabel}>Pulverização</Text>
             <Text style={styles.cardRowValue}>{formatCurrency(harvest?.expenseBreakdown?.spraying)}</Text>
           </View>
           <View style={styles.cardRow}>
@@ -126,9 +126,9 @@ export default function HarvestDetailScreen() {
 
         {/* Production Records */}
         <View style={[styles.card, shadows.card]}>
-          <Text style={styles.cardTitle}>📦 Registros de Produ\u00e7\u00e3o</Text>
+          <Text style={styles.cardTitle}>📦 Registros de Produção</Text>
           {(harvest?.productionRecords?.length ?? 0) === 0 ? (
-            <Text style={styles.emptyText}>Nenhum registro de produ\u00e7\u00e3o</Text>
+            <Text style={styles.emptyText}>Nenhum registro de produção</Text>
           ) : (
             (harvest?.productionRecords ?? []).map((pr) => (
               <View key={pr?.id} style={styles.cardRow}>

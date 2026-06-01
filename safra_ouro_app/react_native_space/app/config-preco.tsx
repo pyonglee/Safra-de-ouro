@@ -31,7 +31,7 @@ export default function ConfigPrecoScreen() {
 
   const handleSave = async () => {
     const price = parseFloat(newPrice?.replace(',', '.') ?? '0');
-    if (!price || price <= 0) { setError('Informe um pre\u00e7o v\u00e1lido'); return; }
+    if (!price || price <= 0) { setError('Informe um preço válido'); return; }
     setError('');
     setLoading(true);
     try {
@@ -50,18 +50,18 @@ export default function ConfigPrecoScreen() {
     <SafeAreaView style={styles.safe}>
       <View style={styles.header}>
         <IconButton icon="arrow-left" onPress={() => router.back()} iconColor={colors.textPrimary} />
-        <Text style={styles.headerTitle}>Pre\u00e7o por Balaio</Text>
+        <Text style={styles.headerTitle}>Preço por Balaio</Text>
         <View style={{ width: 48 }} />
       </View>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.flex}>
         <View style={styles.content}>
           <View style={[styles.currentCard, shadows.card]}>
-            <Text style={styles.currentLabel}>Pre\u00e7o Atual</Text>
+            <Text style={styles.currentLabel}>Preço Atual</Text>
             <Text style={styles.currentValue}>{formatCurrency(currentPrice)}</Text>
           </View>
 
           <TextInput
-            label="Novo Pre\u00e7o (R$)"
+            label="Novo Preço (R$)"
             value={newPrice}
             onChangeText={setNewPrice}
             keyboardType="decimal-pad"
@@ -73,11 +73,11 @@ export default function ConfigPrecoScreen() {
           />
 
           <Text style={styles.note}>
-            O novo pre\u00e7o ser\u00e1 aplicado apenas aos registros futuros
+            O novo preço será aplicado apenas aos registros futuros
           </Text>
 
           {error ? <Text style={styles.error}>{error}</Text> : null}
-          {success ? <Text style={styles.success}>Pre\u00e7o atualizado com sucesso!</Text> : null}
+          {success ? <Text style={styles.success}>Preço atualizado com sucesso!</Text> : null}
 
           <GradientButton title="Salvar" onPress={handleSave} loading={loading} />
         </View>

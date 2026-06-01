@@ -12,7 +12,7 @@ import type { Harvest, Expense } from '../src/types';
 
 const CATEGORY_OPTIONS = [
   { key: 'FERTILIZER', label: 'Adubo' },
-  { key: 'SPRAYING', label: 'Pulveriza\u00e7\u00e3o' },
+  { key: 'SPRAYING', label: 'Pulverização' },
   { key: 'OTHER', label: 'Outros' },
 ];
 
@@ -151,11 +151,11 @@ export default function AddExpenseScreen() {
               style={[styles.input, styles.halfInput]} placeholder="kg, L, un" />
           </View>
 
-          <TextInput label="\u00c1rea aplicada (ha)" value={appliedArea} onChangeText={setAppliedArea}
+          <TextInput label="Área aplicada (ha)" value={appliedArea} onChangeText={setAppliedArea}
             keyboardType="decimal-pad" mode="outlined" outlineColor={colors.border}
             activeOutlineColor={colors.accent} style={styles.input} />
 
-          <TextInput label="Observa\u00e7\u00f5es" value={notes} onChangeText={setNotes}
+          <TextInput label="Observações" value={notes} onChangeText={setNotes}
             mode="outlined" outlineColor={colors.border} activeOutlineColor={colors.accent}
             style={styles.input} multiline numberOfLines={3} />
 

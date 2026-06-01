@@ -17,7 +17,7 @@ export default function AddHarvestScreen() {
   const handleSave = async () => {
     if (!name?.trim()) { setError('Informe o nome da safra'); return; }
     const price = parseFloat(salePricePerSack?.replace(',', '.') ?? '0');
-    if (!price || price <= 0) { setError('Informe o pre\u00e7o por saca'); return; }
+    if (!price || price <= 0) { setError('Informe o preço por saca'); return; }
     setError('');
     setLoading(true);
     try {
@@ -43,7 +43,7 @@ export default function AddHarvestScreen() {
             mode="outlined" outlineColor={colors.border} activeOutlineColor={colors.accent}
             style={styles.input} left={<TextInput.Icon icon="sprout" />} autoFocus />
 
-          <TextInput label="Pre\u00e7o por Saca (R$)" value={salePricePerSack}
+          <TextInput label="Preço por Saca (R$)" value={salePricePerSack}
             onChangeText={setSalePricePerSack} keyboardType="decimal-pad" mode="outlined"
             outlineColor={colors.border} activeOutlineColor={colors.accent} style={styles.input}
             left={<TextInput.Icon icon="currency-brl" />} />

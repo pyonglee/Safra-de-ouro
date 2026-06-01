@@ -68,6 +68,10 @@ export default function ProductionScreen() {
             <Text style={styles.statLabel}>Receita</Text>
           </View>
           <View style={styles.stat}>
+            <Text style={styles.statValue}>{formatCurrency(item?.grandTotalCosts)}</Text>
+            <Text style={styles.statLabel}>Custos</Text>
+          </View>
+          <View style={styles.stat}>
             <Text style={[styles.statValue, { color: isPositive ? colors.success : colors.error }]}>
               {formatCurrency(profit)}
             </Text>
@@ -81,7 +85,7 @@ export default function ProductionScreen() {
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Produ\u00e7\u00e3o</Text>
+        <Text style={styles.headerTitle}>Produção</Text>
         <Pressable style={styles.newHarvestBtn} onPress={() => router.push('/add-harvest')}>
           <MaterialCommunityIcons name="plus" size={18} color={colors.white} />
           <Text style={styles.newHarvestBtnText}>Nova Safra</Text>
@@ -98,7 +102,7 @@ export default function ProductionScreen() {
         }
         ListEmptyComponent={
           !loading ? (
-            <EmptyState icon="sprout" title="Nenhuma safra cadastrada" subtitle="Crie sua primeira safra para come\u00e7ar" />
+            <EmptyState icon="sprout" title="Nenhuma safra cadastrada" subtitle="Crie sua primeira safra para começar" />
           ) : null
         }
       />
@@ -108,7 +112,7 @@ export default function ProductionScreen() {
         style={styles.fab}
         color={colors.white}
         onPress={() => router.push('/add-production')}
-        accessibilityLabel="Registrar produ\u00e7\u00e3o"
+        accessibilityLabel="Registrar produção"
         label="Produção"
       />
     </SafeAreaView>

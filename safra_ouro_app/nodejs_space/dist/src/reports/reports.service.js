@@ -159,7 +159,7 @@ let ReportsService = ReportsService_1 = class ReportsService {
             };
         }
         const harvest = await this.prisma.harvest.findUnique({ where: { id: targetHarvestId } });
-        const salePricePerSack = harvest ? Number(harvest.salePricePerSack) : 0;
+        const salePricePerSack = harvest ? (parseFloat(String(harvest.salePricePerSack ?? 0)) || 0) : 0;
         const prodAgg = await this.prisma.production_record.aggregate({
             where: { userId, harvestId: targetHarvestId },
             _sum: { sacks: true },
@@ -171,7 +171,7 @@ let ReportsService = ReportsService_1 = class ReportsService {
         });
         const categoryTotals = {};
         for (const e of expenses) {
-            categoryTotals[e.category] = (categoryTotals[e.category] || 0) + Number(e.cost);
+            categoryTotals[e.category] = (categoryTotals[e.category] || 0) + (parseFloat(String(e.cost ?? 0)) || 0);
         }
         const expenseBreakdown = Object.entries(categoryTotals).map(([category, total]) => ({ category, total }));
         const totalExpenses = Object.values(categoryTotals).reduce((sum, v) => sum + v, 0);
@@ -179,7 +179,7 @@ let ReportsService = ReportsService_1 = class ReportsService {
             where: { userId, harvestId: targetHarvestId },
             _sum: { totalValue: true },
         });
-        const totalWorkerPayments = Number(balaioAgg._sum.totalValue || 0);
+        const totalWorkerPayments = parseFloat(String(balaioAgg._sum.totalValue ?? 0)) || 0;
         const grandTotalCosts = totalExpenses + totalWorkerPayments;
         const netProfit = totalRevenue - grandTotalCosts;
         const profitMargin = totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0;

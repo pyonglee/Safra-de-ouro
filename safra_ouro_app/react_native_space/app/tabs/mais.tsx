@@ -6,9 +6,9 @@ import { useRouter } from 'expo-router';
 import { colors, spacing, borderRadius, shadows } from '../../src/theme';
 
 const menuItems = [
-  { label: 'Cota\u00e7\u00f5es de Caf\u00e9', icon: 'chart-line' as const, route: '/cotacoes' as const, desc: 'Pre\u00e7os e tend\u00eancias do mercado' },
-  { label: 'Relat\u00f3rios', icon: 'file-chart' as const, route: '/relatorios' as const, desc: 'Despesas, produ\u00e7\u00e3o e lucros' },
-  { label: 'Perfil e Configura\u00e7\u00f5es', icon: 'account-cog' as const, route: '/perfil' as const, desc: 'Seus dados e prefer\u00eancias' },
+  { label: 'Cotações de Café', icon: 'chart-line' as const, route: '/cotacoes' as const, desc: 'Preços e tendências do mercado' },
+  { label: 'Relatórios', icon: 'file-chart' as const, route: '/relatorios' as const, desc: 'Despesas, produção e lucros' },
+  { label: 'Perfil e Configurações', icon: 'account-cog' as const, route: '/perfil' as const, desc: 'Seus dados e preferências' },
 ];
 
 export default function MoreScreen() {
@@ -40,7 +40,7 @@ export default function MoreScreen() {
 
         <View style={styles.footer}>
           <Text style={styles.footerText}>Safra de Ouro v1.0.0</Text>
-          <Text style={styles.footerSubtext}>☕ Gest\u00e3o da lavoura de caf\u00e9</Text>
+          <Text style={styles.footerSubtext}>☕ Gestão da lavoura de café</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
