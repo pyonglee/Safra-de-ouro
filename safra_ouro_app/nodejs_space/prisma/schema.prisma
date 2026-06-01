@@ -1,0 +1,153 @@
+generator client {
+    provider = "prisma-client-js"
+    binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
+    output = "/home/ubuntu/safra_ouro_app/nodejs_space/node_modules/.prisma/client"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model user {
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  setting           setting?
+  workers           worker[]
+  harvests          harvest[]
+  productionRecords production_record[]
+  balaioRecords     balaio_record[]
+  expenses          expense[]
+  quotations        quotation[]
+
+  @@map("users")
+}
+
+model setting {
+  id              String   @id @default(uuid()) @db.Uuid
+  userId          String   @unique @map("user_id") @db.Uuid
+  pricePerBalaio  Decimal  @default(40.00) @map("price_per_balaio") @db.Decimal(12, 2)
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  user user @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("settings")
+}
+
+model worker {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  name      String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user          user            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  balaioRecords balaio_record[]
+
+  @@index([userId])
+  @@map("workers")
+}
+
+model harvest {
+  id               String    @id @default(uuid()) @db.Uuid
+  userId           String    @map("user_id") @db.Uuid
+  name             String
+  salePricePerSack Decimal   @map("sale_price_per_sack") @db.Decimal(12, 2)
+  startDate        DateTime? @map("start_date")
+  endDate          DateTime? @map("end_date")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  user              user                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productionRecords production_record[]
+  balaioRecords     balaio_record[]
+  expenses          expense[]
+
+  @@index([userId])
+  @@index([userId, createdAt(sort: Desc)])
+  @@map("harvests")
+}
+
+model production_record {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  harvestId String   @map("harvest_id") @db.Uuid
+  date      DateTime
+  sacks     Int
+  notes     String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user    user    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  harvest harvest @relation(fields: [harvestId], references: [id], onDelete: Cascade)
+
+  @@index([harvestId])
+  @@index([userId, harvestId])
+  @@map("production_records")
+}
+
+model balaio_record {
+  id             String   @id @default(uuid()) @db.Uuid
+  userId         String   @map("user_id") @db.Uuid
+  workerId       String   @map("worker_id") @db.Uuid
+  harvestId      String   @map("harvest_id") @db.Uuid
+  date           DateTime
+  quantity       Int
+  pricePerBalaio Decimal  @map("price_per_balaio") @db.Decimal(12, 2)
+  totalValue     Decimal  @map("total_value") @db.Decimal(12, 2)
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  user    user    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  worker  worker  @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  harvest harvest @relation(fields: [harvestId], references: [id], onDelete: Cascade)
+
+  @@index([userId, harvestId])
+  @@index([workerId, harvestId])
+  @@index([userId, date(sort: Desc)])
+  @@map("balaio_records")
+}
+
+model expense {
+  id          String   @id @default(uuid()) @db.Uuid
+  userId      String   @map("user_id") @db.Uuid
+  harvestId   String   @map("harvest_id") @db.Uuid
+  category    String
+  productName String   @map("product_name")
+  date        DateTime
+  quantity    Decimal? @db.Decimal(12, 2)
+  unit        String?
+  appliedArea Decimal? @map("applied_area") @db.Decimal(12, 2)
+  cost        Decimal  @db.Decimal(12, 2)
+  notes       String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  user    user    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  harvest harvest @relation(fields: [harvestId], references: [id], onDelete: Cascade)
+
+  @@index([userId, harvestId])
+  @@index([userId, category])
+  @@index([harvestId, category])
+  @@map("expenses")
+}
+
+model quotation {
+  id           String   @id @default(uuid()) @db.Uuid
+  userId       String   @map("user_id") @db.Uuid
+  coffeeType   String   @map("coffee_type")
+  pricePerSack Decimal  @map("price_per_sack") @db.Decimal(12, 2)
+  date         DateTime
+  source       String?
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  user user @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, coffeeType, date(sort: Desc)])
+  @@index([userId, date(sort: Desc)])
+  @@map("quotations")
+}
